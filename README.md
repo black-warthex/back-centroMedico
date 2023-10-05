@@ -53,4 +53,5 @@ INSERT INTO cita(fecha_hora,tipo_cita,doctor_id,paciente_id) VALUES
 ('2023-09-24 08:00:00','odontologia general',1,1);
 ```
 # Pruebas
-Para poder probar las peticiones se puede importar en postman el siguiente archivo
+Para poder probar las peticiones se puede descargar el [archivo](https://github.com/black-warthex/back-centroMedico/blob/54a6e15343dbdcdce36f4a6d0716766a39b20f73/citasmedicas.postman_collection.json) e importar en postman:
+
