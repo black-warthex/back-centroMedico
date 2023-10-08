@@ -23,7 +23,7 @@ public class Persona {
 
     public String nombres;
 
-    public String apellidos;
+    public String apellido;
 
     public String tipo_documento;
 

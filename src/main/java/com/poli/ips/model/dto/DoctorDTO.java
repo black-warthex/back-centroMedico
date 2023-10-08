@@ -12,4 +12,8 @@ public class DoctorDTO {
     public String apellidos;
 
     public String especialidad;
+
+    public String tipo_documento;
+
+    public int numero_documento;
 }

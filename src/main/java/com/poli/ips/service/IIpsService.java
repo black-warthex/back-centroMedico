@@ -12,6 +12,10 @@ import java.util.List;
 @Service
 public interface IIpsService {
 
+
+    String authLog(String tipo,Integer numero);
+    PersonaDTO findPersonaByDoc(String tipo,Integer numero);
+
     CitasDTO createCitas(Cita cita);
 
     DoctorDTO createDoctor(Doctor doctor);
@@ -25,6 +29,7 @@ public interface IIpsService {
     void deleteCita(Integer id);
 
     List<CitasDTO> findAllCitas();
+    List<CitasDTO> findCitasByPaciente(Integer id_persona);
 
     List<PersonaDTO> findAllPersonas();
 

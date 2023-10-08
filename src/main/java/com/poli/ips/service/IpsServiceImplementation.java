@@ -64,6 +64,13 @@ public class IpsServiceImplementation implements IIpsService {
     }
 
     @Override
+    public List<CitasDTO> findCitasByPaciente(Integer id_persona) {
+        return citasRepository.findCitaByPersona(id_persona).stream()
+                .map(this::convertCitasToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<CitasDTO> findAllCitas() {
         return citasRepository.findAll().stream()
                 .map(this::convertCitasToDTO)
@@ -91,16 +98,26 @@ public class IpsServiceImplementation implements IIpsService {
 
     @Override
     public PersonaDTO findPersona(Integer id) {
+        if(personaRepository.findById(id).isEmpty()){
+            return new PersonaDTO();
+        }
         return convertPersonaToDTO(personaRepository.findById(id).get());
     }
 
-    private PersonaDTO convertPersonaToDTO(Persona persona) {
+    @Override
+    public PersonaDTO findPersonaByDoc(String tipo,Integer numero) {
+        return convertPersonaToDTO(personaRepository.findPersonaByDoc(tipo,numero));
+    }
 
+    @Override
+    public String authLog(String tipo_doc,Integer numero) {
+        return personaRepository.authLog(tipo_doc,numero);
+    }
+
+    private PersonaDTO convertPersonaToDTO(Persona persona) {
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
-
         PersonaDTO personaDTO = new PersonaDTO();
-
         personaDTO = modelMapper.map(persona, PersonaDTO.class);
         return personaDTO;
     }

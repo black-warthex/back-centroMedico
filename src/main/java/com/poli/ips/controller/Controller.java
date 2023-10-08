@@ -8,16 +8,10 @@ import com.poli.ips.model.entity.Doctor;
 import com.poli.ips.model.entity.Persona;
 import com.poli.ips.service.IIpsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.*;
 import java.util.List;
 
 @RestController
@@ -38,9 +32,9 @@ public class Controller {
     }
     @PostMapping("save/persona")
     public PersonaDTO createPersona(@RequestBody Persona persona) {
+        
         return service.createPersona(persona);
     }
-
     @PutMapping("update/cita")
     public CitasDTO updateCita(@RequestBody Cita cita) {
         return service.updateCitas(cita);
@@ -54,6 +48,11 @@ public class Controller {
     @DeleteMapping("delete/cita/{id}")
     public void deleteCita(@PathVariable int id) {
         service.deleteCita(id);
+    }
+
+    @GetMapping( path = "auth",produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody String login(@RequestParam(name = "tipo") String tipo, @RequestParam(name = "numero")Integer numero){
+        return service.authLog(tipo,numero );
     }
 
     @GetMapping("get/citas")
@@ -79,6 +78,16 @@ public class Controller {
     @GetMapping("get/personas/{id}")
     public PersonaDTO getPersona(@PathVariable int id) {
         return service.findPersona(id);
+    }
+
+    @GetMapping("get/personas/getByIdDoc")
+    public PersonaDTO getPersonaDoc(@RequestParam(name = "tipo") String tipo, @RequestParam(name = "numero")Integer numero) {
+        return service.findPersonaByDoc(tipo,numero);
+    }
+
+    @GetMapping("citas/all/{id_persona}")
+    public List<CitasDTO> getAllCitasByPersona(@PathVariable int id_persona) {
+        return service.findCitasByPaciente(id_persona);
     }
 
 
